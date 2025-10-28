@@ -67,30 +67,28 @@ app.post('/generate-pdf', async (req, res) => {
         const lineHeight = fontSize * 1.4;
         const linkColor = theme === 'dark' ? rgb(0.73, 0.53, 0.99) : rgb(0.58, 0.44, 0.86);
         const textColor = theme === 'dark' ? rgb(1, 1, 1) : rgb(0.2, 0.2, 0.2);
-        const titleColor = rgb(0.88, 0.19, 0.42); // #E1306C (Pink Instagram)
+        
+        // --- KOORDINAT YANG DISESUAIKAN (dalam points) ---
+        const { width, height } = { width: 595, height: 842 }; 
+        const startX = 27;              // Jarak dari KIRI (9.5mm)
+        // === STARTY DITURUNKAN KE 155pt DARI ATAS ===
+        const startY = height - 155; // Posisi Y awal (842 - 155 = 687pt dari BAWAH)
+        // ===========================================
+        const pageBottomMargin = 77;    // Jarak dari BAWAH halaman (27mm)
+        // ************************************************
 
+        const contentWidth = width - (startX * 2);
+        const numColumns = 3;
+        const columnWidth = contentWidth / numColumns;
+        
         for (const section of sections) {
              console.log(`Memproses section: ${section.name}`);
              const sectionTemplatePath = path.join(templateFolderPath, section.templateFile);
              console.log(`Memuat template section: ${sectionTemplatePath}`);
              let templatePage;
-
-             // --- KOORDINAT YANG DISESUAIKAN (dalam points) ---
-             const { width, height } = { width: 595, height: 842 }; // Ukuran A4 points
-             const startX = 27;          // Jarak dari KIRI halaman (9.5mm)
-             // === STARTY DITINGKATKAN LAGI (200pt dari atas) ===
-             const startY = height - 200; // Posisi Y awal (842 - 200 = 642pt dari BAWAH)
-             // ===================================================
-             const pageBottomMargin = 77; // Jarak dari BAWAH halaman (27mm dari bawah)
-             // ************************************************
-
-             const contentWidth = width - (startX * 2);
-             const numColumns = 3;
-             const columnWidth = contentWidth / numColumns;
              let currentX = startX;
              let currentY = startY;
              let columnIndex = 0;
-             let pageIndexOffset = 0;
 
              // Muat template section pertama kali
              try {
@@ -104,25 +102,6 @@ app.post('/generate-pdf', async (req, res) => {
                  throw new Error(`Template section tidak ditemukan atau rusak.`);
              }
 
-             // --- Tulis Judul Section (Manual, agar tidak bentrok dengan template) ---
-             const titleText = `${section.name} (${section.data.length})`;
-             templatePage.drawText(titleText, {
-                 x: startX,
-                 y: height - 100, // Perkiraan di atas daftar username
-                 font: font,
-                 size: 16, // Ukuran font judul
-                 color: titleColor,
-                 fontWeight: 'bold',
-             });
-             // Garis pemisah/underline (di bawah judul)
-             templatePage.drawLine({
-                 start: { x: startX, y: height - 110 },
-                 end: { x: startX + font.widthOfTextAtSize(titleText, 16), y: height - 110 },
-                 thickness: 1.5,
-                 color: titleColor,
-             });
-
-
              // --- Tulis Daftar Username ---
              for (let i = 0; i < section.data.length; i++) {
                  const username = section.data[i];
@@ -135,20 +114,30 @@ app.post('/generate-pdf', async (req, res) => {
                  if (currentY < pageBottomMargin) {
                      columnIndex++;
                      if (columnIndex >= numColumns) {
-                         // === PAGINATION ===
+                         // === PAGINATION (Pindah Halaman) ===
                          console.log(`Pindah halaman untuk ${section.name}...`);
                          const nextPageTemplateBytes = await fs.readFile(sectionTemplatePath);
                          const nextPageTemplateDoc = await PDFDocument.load(nextPageTemplateBytes);
                          const [nextCopiedPage] = await finalPdfDoc.copyPages(nextPageTemplateDoc, [0]);
                          finalPdfDoc.addPage(nextCopiedPage);
                          templatePage = finalPdfDoc.getPage(finalPdfDoc.getPageCount() - 1);
+                         
+                         // Tulis JUDUL LANJUTAN di halaman baru
+                         const titleText = `${section.name} (cont.)`;
+                         templatePage.drawText(titleText, {
+                             x: startX,
+                             y: height - 100, // Perkiraan posisi judul di template halaman baru
+                             font: font,
+                             size: 16,
+                             color: rgb(0.88, 0.19, 0.42), // Pink
+                         });
+                         
                          currentY = startY; // Kembali ke Y awal
                          columnIndex = 0; // Kembali ke kolom pertama
-                         pageIndexOffset++;
                      } else {
                          currentY = startY; // Kembali ke Y awal untuk kolom baru
                      }
-                     currentX = startX + (columnIndex * columnWidth);
+                     currentX = startX + (columnIndex * columnWidth); // Pindah ke X kolom baru/pertama
                  }
 
                  // Gambar teks nomor
@@ -176,7 +165,7 @@ app.post('/generate-pdf', async (req, res) => {
                  try {
                       templatePage.createAnnotation('Link', { 
                           x: usernameX, 
-                          y: currentY - lineHeight * 0.8, // Posisi Y disesuaikan
+                          y: currentY - lineHeight * 0.8,
                           width: linkWidth, 
                           height: lineHeight 
                       }).setURI(userLink);
@@ -208,5 +197,5 @@ app.post('/generate-pdf', async (req, res) => {
 // --- Jalankan Server ---
 app.listen(port, () => {
     console.log(`Backend PDF generator berjalan di http://localhost:${port}`);
-    console.log(`Koordinat konten diatur ke: startX=${27}, startY=${842 - 200}, pageBottomMargin=${77}`);
+    console.log(`Koordinat konten diatur ke: startX=${27}, startY=${842 - 155}, pageBottomMargin=${77}`);
 });

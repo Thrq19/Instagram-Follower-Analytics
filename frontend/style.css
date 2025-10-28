@@ -1,0 +1,789 @@
+/* style.css */
+
+/* --- 1. Variabel Warna --- */
+:root {
+    /* ... (Variables remain the same) ... */
+     --body-bg: linear-gradient(135deg, #FF69B4 0%, #FFC0CB 30%, #EE82EE 60%, #9370DB 100%);
+    --text-color: #333;
+    --header-text-color: #fff;
+    --section-bg: rgba(255, 255, 255, 0.95);
+    --card-bg: white;
+    --table-header-bg: #f7f7f7;
+    --table-row-hover: #fff0f5;
+    --link-color: #9370DB;
+    --instruction-bg: #fff0f5;
+    --instruction-border: #FF69B4;
+    --dropzone-border: #9370DB;
+    --dropzone-hover-border: #FF69B4;
+    --dropzone-bg: #f9f9f9;
+    --dropzone-hover-bg: #f0f0f0;
+    --count-gradient: linear-gradient(45deg, #FF69B4, #EE82EE, #9370DB);
+    --tab-inactive-color: #888;
+    --tab-inactive-hover-bg: #f0f0f0;
+    --tab-active-bg: linear-gradient(to right, #FFC0CB, #EE82EE);
+    --tab-active-color: white;
+    --footer-bg: #333;
+    --footer-text: #eee;
+    --footer-link-hover: #FF69B4;
+    --toggle-bg: #ccc;
+    --toggle-checked-bg: #EE82EE;
+    --toggle-knob: white;
+    --toggle-text-color: var(--header-text-color);
+}
+
+/* --- 2. Dark Mode --- */
+body[data-theme="dark"] {
+    /* ... (Dark mode variables remain the same) ... */
+     --body-bg: linear-gradient(135deg, #2d0f1e 0%, #3a1c25 30%, #4a1e4a 60%, #30195e 100%);
+    --text-color: #eee;
+    --header-text-color: #eee;
+    --section-bg: rgba(40, 40, 40, 0.95);
+    --card-bg: #282828;
+    --table-header-bg: #3a3a3a;
+    --table-row-hover: #4a1e4a;
+    --link-color: #bb86fc; /* Lighter purple */
+    --instruction-bg: #3a1c25;
+    --instruction-border: #FF69B4;
+    --dropzone-border: #bb86fc;
+    --dropzone-hover-border: #FF69B4;
+    --dropzone-bg: #333;
+    --dropzone-hover-bg: #444;
+    --count-gradient: linear-gradient(45deg, #FF69B4, #EE82EE, #bb86fc);
+    --tab-inactive-color: #aaa;
+    --tab-inactive-hover-bg: #444;
+    --tab-active-bg: linear-gradient(to right, #FFC0CB, #EE82EE);
+    --tab-active-color: white;
+    --footer-bg: #1f1f1f;
+    --footer-text: #ccc;
+    --footer-link-hover: #FF69B4;
+    --toggle-bg: #555;
+    --toggle-checked-bg: #bb86fc;
+    --toggle-knob: #282828;
+    --toggle-text-color: var(--header-text-color);
+}
+
+/* --- 3. Styling Umum Menggunakan Variabel --- */
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--body-bg);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    text-align: center;
+    padding: 30px 20px 20px;
+    color: var(--header-text-color);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+/* Header Logo (PNG) */
+.header-logo {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-weight: 800;
+}
+
+header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-top: 0;
+}
+
+.container {
+    flex-grow: 1;
+    padding: 20px;
+    max-width: 1000px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* ... (Upload section styles) ... */
+.upload-section {
+    background-color: var(--section-bg);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.upload-title {
+    font-size: 1.8rem;
+    color: var(--text-color); /* Updated */
+    margin-bottom: 10px;
+}
+
+.upload-subtitle {
+    color: var(--text-color); /* Updated */
+    opacity: 0.8;
+    margin-bottom: 30px;
+}
+
+#uploadForm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.drop-zone {
+    flex: 1 1 45%;
+    border: 2px dashed var(--dropzone-border);
+    border-radius: 10px;
+    padding: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: var(--dropzone-bg);
+    color: var(--text-color); /* Added */
+}
+
+.drop-zone:hover {
+    background-color: var(--dropzone-hover-bg);
+    border-color: var(--dropzone-hover-border);
+}
+
+.upload-icon {
+    width: 40px;
+    height: 40px;
+    color: var(--link-color); /* Updated */
+    margin-bottom: 10px;
+}
+
+.btn-browse {
+    display: inline-block;
+    background: linear-gradient(to right, #FFC0CB, #EE82EE);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s;
+}
+
+.btn-browse:hover {
+    box-shadow: 0 4px 10px rgba(255, 105, 180, 0.5);
+    transform: translateY(-2px);
+}
+
+.file-name-display {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #888; /* Keep neutral */
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+body[data-theme="light"] .file-name-display[style*="color: rgb(76, 175, 80)"] { color: #4CAF50 !important; }
+body[data-theme="dark"] .file-name-display[style*="color: rgb(76, 175, 80)"] { color: #81C784 !important; } /* Lighter green for dark */
+
+
+.btn-process {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+    width: 100%;
+    max-width: 400px;
+}
+
+.btn-process:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.file-note {
+    margin-top: 20px;
+    color: var(--text-color); /* Updated */
+    opacity: 0.8;
+    font-size: 0.9rem;
+}
+
+.instructions {
+    text-align: left;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: var(--instruction-bg);
+    border-radius: 10px;
+    border-left: 5px solid var(--instruction-border);
+    color: var(--text-color); /* Updated */
+}
+
+.instructions h3 {
+    color: var(--instruction-border);
+    margin-top: 0;
+}
+
+.instructions ol {
+    padding-left: 20px;
+    line-height: 1.6;
+}
+
+.divider {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(147, 112, 219, 0.75), rgba(0, 0, 0, 0));
+    margin: 30px 0;
+}
+/* ------------------------------------- */
+/* Bagian Hasil & Kartu Ringkasan */
+/* ------------------------------------- */
+.results-section {
+    position: relative;
+     padding-top: 50px;
+}
+
+.results-section h2 {
+    text-align: center;
+    color: var(--header-text-color);
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    margin-top: 0;
+}
+
+.btn-export {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: var(--link-color);
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    z-index: 5;
+}
+
+.btn-export:hover {
+    background-color: #7a5fb2;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+body[data-theme="dark"] .btn-export {
+     background-color: var(--link-color);
+}
+body[data-theme="dark"] .btn-export:hover {
+     background-color: #9e6cfc;
+}
+
+.summary-cards {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.card {
+    flex: 1;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card h3{
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-top: 0;
+    font-size: 1.1rem;
+}
+
+.count {
+    font-size: 2.5rem;
+    font-weight: bold;
+    background: var(--count-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 5px 0;
+}
+
+/* ------------------------------------- */
+/* Navigasi Tab Styling */
+/* ------------------------------------- */
+.tab-navigation {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 5px;
+    background-color: var(--section-bg);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.tab-button {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--tab-inactive-color);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    flex-grow: 1;
+    max-width: 33%;
+    text-align: center;
+}
+
+.tab-button:hover:not(.active) {
+    background-color: var(--tab-inactive-hover-bg);
+    color: var(--text-color);
+}
+
+.tab-button.active {
+    background: var(--tab-active-bg);
+    color: var(--tab-active-color);
+    box-shadow: 0 2px 8px rgba(255, 105, 180, 0.4);
+}
+.tab-content {
+    animation: fadeIn 0.5s;
+}
+
+/* Tabel */
+.analysis-table {
+    background-color: var(--section-bg);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.analysis-table h3 {
+    color: var(--instruction-border);
+    border-bottom: 2px solid var(--instruction-border);
+    opacity: 0.7;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    table-layout: fixed;
+}
+
+
+@media (min-width: 992px) {
+    #tableNotFollowingBack tbody,
+    #tableNotFollowedByYou tbody,
+    #tableMutuals tbody {
+        display: block;
+        column-count: 3;
+        column-gap: 20px;
+    }
+     #tableNotFollowingBack tbody tr,
+    #tableNotFollowedByYou tbody tr,
+    #tableMutuals tbody tr {
+        display: block;
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin-bottom: 5px;
+    }
+    #tableNotFollowingBack thead,
+    #tableNotFollowedByYou thead,
+    #tableMutuals thead {
+         display: none;
+    }
+     #tableNotFollowingBack tbody td,
+    #tableNotFollowedByYou tbody td,
+    #tableMutuals tbody td {
+        display: inline-block;
+        width: auto;
+        border-bottom: none;
+        padding: 2px 4px;
+        font-size: 0.85rem;
+        color: var(--text-color);
+    }
+     #tableNotFollowingBack tbody td:first-child,
+    #tableNotFollowedByYou tbody td:first-child,
+    #tableMutuals tbody td:first-child {
+        min-width: 25px;
+        text-align: right;
+        padding-right: 5px;
+        color: var(--tab-inactive-color);
+    }
+    #tableNotFollowingBack tbody td:last-child,
+    #tableNotFollowedByYou tbody td:last-child,
+    #tableMutuals tbody td:last-child {
+         padding-left: 0;
+    }
+     #tableNotFollowingBack tbody tr:hover td,
+    #tableNotFollowedByYou tbody tr:hover td,
+    #tableMutuals tbody tr:hover td {
+        background-color: var(--table-row-hover);
+        border-radius: 3px;
+    }
+}
+
+
+@media (min-width: 769px) and (max-width: 991px) {
+    #tableNotFollowingBack tbody,
+    #tableNotFollowedByYou tbody,
+    #tableMutuals tbody {
+        display: block;
+        column-count: 2;
+        column-gap: 25px;
+    }
+     #tableNotFollowingBack tbody tr,
+    #tableNotFollowedByYou tbody tr,
+    #tableMutuals tbody tr {
+        display: block;
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin-bottom: 5px;
+    }
+    #tableNotFollowingBack thead,
+    #tableNotFollowedByYou thead,
+    #tableMutuals thead {
+         display: none;
+    }
+     #tableNotFollowingBack tbody td,
+    #tableNotFollowedByYou tbody td,
+    #tableMutuals tbody td {
+        display: inline-block;
+        width: auto;
+        border-bottom: none;
+        padding: 2px 5px;
+        color: var(--text-color);
+    }
+     #tableNotFollowingBack tbody td:first-child,
+    #tableNotFollowedByYou tbody td:first-child,
+    #tableMutuals tbody td:first-child {
+        min-width: 30px;
+        text-align: right;
+        padding-right: 5px;
+        color: var(--tab-inactive-color);
+    }
+    #tableNotFollowingBack tbody td:last-child,
+    #tableNotFollowedByYou tbody td:last-child,
+    #tableMutuals tbody td:last-child {
+         padding-left: 0;
+    }
+     #tableNotFollowingBack tbody tr:hover td,
+    #tableNotFollowedByYou tbody tr:hover td,
+    #tableMutuals tbody tr:hover td {
+        background-color: var(--table-row-hover);
+        border-radius: 3px;
+    }
+}
+
+
+/* --- Gaya Tabel Default (Mobile & Fallback) --- */
+thead { display: table-header-group; }
+thead tr { display: table-row; }
+th, td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--dropzone-hover-bg);
+    color: var(--text-color);
+    word-break: break-word;
+    display: table-cell;
+}
+th:first-child, td:first-child {
+    width: 50px;
+    text-align: right;
+    padding-right: 15px;
+}
+th { background-color: var(--table-header-bg); font-weight: 600; }
+tbody { display: table-row-group; }
+tbody tr { display: table-row; break-inside: auto; margin-bottom: 0; }
+tbody tr:hover { background-color: var(--table-row-hover); }
+tbody tr:hover td { background-color: transparent; border-radius: 0; }
+
+td a { color: var(--link-color); text-decoration: none; }
+td a:hover { text-decoration: underline; }
+
+
+/* Tombol kembali (Back) */
+.btn-back {
+    margin-top: 30px;
+    max-width: 300px;
+    background-color: #333 !important;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.btn-back:hover {
+    background-color: #555 !important;
+}
+
+/* Animasi sederhana */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ------------------------------------- */
+/* Footer Styling (PNG) */
+/* ------------------------------------- */
+footer {
+    background-color: var(--footer-bg);
+    color: var(--footer-text);
+    text-align: center;
+    padding: 15px 20px;
+    margin-top: auto;
+    font-size: 0.9rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+footer p {
+    margin-bottom: 10px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.social-links a {
+    color: var(--footer-text);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+/* Ukuran Ikon di Footer */
+.social-links a img.social-icon {
+    width: 20px; /* Ukuran default */
+    height: 20px;
+    margin-right: 5px;
+}
+
+.instagram-footer-icon {
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.linkedin-footer-icon {
+    border-radius: 5px;
+}
+
+.portfolio-footer-icon {
+    border-radius: 5px;
+}
+
+
+.social-links a:hover,
+.social-links a:hover span {
+    color: var(--footer-link-hover);
+}
+
+/* ------------------------------------- */
+/* Theme Toggle Switch (Header - Absolute) */
+/* ------------------------------------- */
+.theme-switch-wrapper.header-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 10;
+}
+.theme-switch-wrapper.header-toggle span.toggle-label {
+    color: var(--toggle-text-color);
+    font-size: 0.85rem;
+}
+
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--toggle-bg);
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: var(--toggle-knob);
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--toggle-checked-bg);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* ------------------------------------- */
+/* Media Queries untuk Responsif */
+/* ------------------------------------- */
+
+@media (max-width: 991px) { /* Tablet and below */
+    /* Kembalikan ke 1 kolom jika layar kurang dari 992px */
+    #tableNotFollowingBack tbody,
+    #tableNotFollowedByYou tbody,
+    #tableMutuals tbody {
+        display: table-row-group;
+        column-count: 1;
+    }
+     #tableNotFollowingBack tbody tr,
+    #tableNotFollowedByYou tbody tr,
+    #tableMutuals tbody tr {
+        display: table-row;
+        break-inside: auto;
+        margin-bottom: 0;
+    }
+    /* Tampilkan kembali header */
+    #tableNotFollowingBack thead,
+    #tableNotFollowedByYou thead,
+    #tableMutuals thead {
+         display: table-header-group;
+    }
+     /* Kembalikan gaya sel */
+     #tableNotFollowingBack tbody td,
+    #tableNotFollowedByYou tbody td,
+    #tableMutuals tbody td {
+        display: table-cell;
+        width: auto;
+        border-bottom: 1px solid var(--dropzone-hover-bg);
+        padding: 8px 10px; /* Padding mobile */
+        font-size: 0.9rem; /* Font mobile */
+    }
+     #tableNotFollowingBack tbody td:first-child,
+    #tableNotFollowedByYou tbody td:first-child,
+    #tableMutuals tbody td:first-child {
+        min-width: unset;
+        width: 40px;
+        text-align: right;
+        padding-right: 10px;
+        color: var(--text-color);
+    }
+     #tableNotFollowingBack tbody tr:hover td,
+    #tableNotFollowedByYou tbody tr:hover td,
+    #tableMutuals tbody tr:hover td {
+        background-color: transparent;
+    }
+     tbody tr:hover {
+        background-color: var(--table-row-hover);
+     }
+}
+
+
+@media (max-width: 768px) { /* Breakpoint utama untuk mobile */
+    header {
+         padding: 60px 20px 20px;
+    }
+    header h1 {
+        font-size: 2rem;
+    }
+
+     .results-section {
+        padding-top: 60px;
+    }
+    .btn-export {
+        top: 10px;
+        right: 10px;
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+
+    .theme-switch-wrapper.header-toggle {
+        top: 15px;
+        right: 15px;
+    }
+    .theme-switch-wrapper.header-toggle span.toggle-label {
+        display: none;
+    }
+
+
+    .drop-zone {
+        flex: 1 1 100%;
+    }
+
+    .summary-cards {
+        flex-direction: column;
+    }
+
+    .upload-section {
+        padding: 20px;
+    }
+
+    .tab-navigation {
+        flex-direction: column;
+        gap: 5px;
+        padding: 10px;
+    }
+    .tab-button {
+        max-width: 100%;
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    th, td {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+    th:first-child, td:first-child {
+        width: 40px;
+         padding-right: 10px;
+    }
+
+
+    .social-links {
+        justify-content: center;
+        gap: 20px;
+    }
+}

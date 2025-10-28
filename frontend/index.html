@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Follower Analytics - Checker</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="icon" type="image/png" href="Image/logo.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="theme-switch-wrapper header-toggle">
+            <label class="theme-switch" for="theme-toggle">
+                <input type="checkbox" id="theme-toggle" />
+                <span class="slider round"></span>
+            </label>
+            <span class="toggle-label">Dark Mode</span>
+        </div>
+
+        <div class="logo">
+            <img src="Image/2227-removebg-preview.png" alt="Instagram Logo" class="header-logo" width="50" height="50">
+        </div>
+        <h1>Instagram Follower Analytics</h1>
+        <p>Uncover insights from your Instagram data with beautiful visualizations</p>
+    </header>
+
+    <main class="container">
+        <section class="page upload-page">
+             <section class="upload-section">
+                <h2 class="upload-title">Upload Your Instagram Archives</h2>
+                <p class="upload-subtitle">Drag and drop your ZIP files or click to browse</p>
+                <form id="uploadForm">
+                    <div class="drop-zone" id="followersDropZone">
+                        <svg class="upload-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-4H8l4-4 4 4h-3v4z" fill="currentColor"/></svg>
+                        <p>File 1: Followers (JSON/ZIP)</p>
+                        <input type="file" id="fileFollowers" accept=".json,.zip" required hidden>
+                        <label for="fileFollowers" class="btn-browse">Browse File 1</label>
+                        <span id="followersFileName" class="file-name-display">Belum ada file dipilih</span>
+                    </div>
+
+                    <div class="drop-zone" id="followingDropZone">
+                        <svg class="upload-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-4H8l4-4 4 4h-3v4z" fill="currentColor"/></svg>
+                        <p>File 2: Following (JSON/ZIP)</p>
+                        <input type="file" id="fileFollowing" accept=".json,.zip" required hidden>
+                        <label for="fileFollowing" class="btn-browse">Browse File 2</label>
+                        <span id="followingFileName" class="file-name-display">Belum ada file dipilih</span>
+                    </div>
+
+                    <button type="submit" class="btn-process" disabled>Proses Analisis</button>
+                </form>
+                <p class="file-note">**Catatan:** Pastikan Anda mengunggah file yang benar. Maksimum ukuran file: 50MB.</p>
+
+                <hr class="divider">
+
+                <div class="instructions">
+                    <h3>Cara mendapatkan data Instagram Anda:</h3>
+                    <ol>
+                        <li>Buka Pengaturan Instagram → <strong>Your Activity</strong> → <strong>Download Your Information</strong>.</li>
+                        <li>Pilih <strong>Select "Download or transfer information"</strong>.</li>
+                        <li>Pilih <strong>"Some of your information"</strong> dan pilih data <strong>Followers and following</strong>.</li>
+                        <li>Pilih format <strong>JSON</strong> dan klik <strong>Request download</strong>.</li>
+                    </ol>
+                </div>
+            </section>
+        </section>
+
+        <section class="page results-page" style="display: none;">
+             <section class="results-section">
+                 <button id="exportPdfButton" class="btn-export">Export to PDF 📄</button>
+                <h2>Hasil Analisis Follower</h2>
+
+                <div class="summary-cards">
+                    <div class="card mutuals-card">
+                        <h3>Mutuals</h3>
+                        <p class="count" id="mutualsCount">0</p>
+                    </div>
+                    <div class="card not-following-back-card">
+                        <h3>Not Following Back</h3>
+                        <p class="count" id="nfbCount">0</p>
+                    </div>
+                    <div class="card not-followed-by-you-card">
+                        <h3>Not Followed By You</h3>
+                        <p class="count" id="nfbyCount">0</p>
+                    </div>
+                </div>
+
+                <div class="tab-navigation">
+                    <button class="tab-button active" data-tab="tab-mutuals">Mutuals (<span id="tabMutualsCount">0</span>)</button>
+                    <button class="tab-button" data-tab="tab-nfb">Not Following Back (<span id="tabNFbCount">0</span>)</button>
+                    <button class="tab-button" data-tab="tab-nfby">Not Followed By You (<span id="tabNFbYCount">0</span>)</button>
+                </div>
+
+                <div class="tab-content-container" id="resultsToExport">
+                    <div id="tab-mutuals" class="tab-content active">
+                         <div class="analysis-table">
+                            <h3>🤝 Mutuals (Saling Follow)</h3>
+                            <table id="tableMutuals">
+                                <thead>
+                                    <tr><th>No.</th><th>Username</th></tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tab-nfb" class="tab-content" style="display:none;">
+                         <div class="analysis-table">
+                            <h3>💔 Not Following Back (Akun yang Anda Follow)</h3>
+                            <table id="tableNotFollowingBack">
+                                <thead>
+                                    <tr><th>No.</th><th>Username</th></tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tab-nfby" class="tab-content" style="display:none;">
+                         <div class="analysis-table">
+                            <h3>🤷‍♂️ Not Followed By You (Akun yang Follow Anda)</h3>
+                            <table id="tableNotFollowedByYou">
+                                <thead>
+                                    <tr><th>No.</th><th>Username</th></tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> </section>
+
+            <button id="backToUpload" class="btn-process btn-back">← Upload File Baru</button>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Instagram Archive Analytics. All data processed locally in your browser.</p>
+        <div class="social-links">
+            <a href="https://www.instagram.com/thrq.a_19/" target="_blank">
+                <img src="Image/2227-removebg-preview.png" alt="Instagram Icon" class="social-icon instagram-footer-icon" width="24" height="24">
+                <span>@thrq.a\_19</span>
+            </a>
+            <a href="https://www.linkedin.com/in/thoriq-ahmad-salahuddin-al-ayubi-87b3852b7" target="_blank">
+                <img src="Image/images.png" alt="LinkedIn Icon" class="social-icon linkedin-footer-icon" width="20" height="20">
+                <span>LinkedIn</span>
+            </a>
+            <a href="YOUR_PORTFOLIO_URL_HERE" target="_blank" title="My Portfolio">
+                <img src="Image/logo.png" alt="Portfolio Icon" class="social-icon portfolio-footer-icon" width="20" height="20">
+                <span>Portfolio</span>
+            </a>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

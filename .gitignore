@@ -1,0 +1,16 @@
+# Direktori dependencies Node.js yang sangat besar (JANGAN diunggah!)
+node_modules/
+
+# File konfigurasi yang berisi rahasia (Kunci API, Password)
+.env
+
+# File log dan cache yang dihasilkan saat runtime
+npm-debug.log*
+yarn-error.log
+
+# Direktori kompilasi/build
+/dist
+/build
+
+# File cache macOS
+.DS_Store

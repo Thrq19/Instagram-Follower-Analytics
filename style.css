@@ -2,8 +2,7 @@
 
 /* --- 1. Variabel Warna --- */
 :root {
-    /* ... (Variables remain the same) ... */
-     --body-bg: linear-gradient(135deg, #FF69B4 0%, #FFC0CB 30%, #EE82EE 60%, #9370DB 100%);
+    --body-bg: linear-gradient(135deg, #FF69B4 0%, #FFC0CB 30%, #EE82EE 60%, #9370DB 100%);
     --text-color: #333;
     --header-text-color: #fff;
     --section-bg: rgba(255, 255, 255, 0.95);
@@ -33,7 +32,6 @@
 
 /* --- 2. Dark Mode --- */
 body[data-theme="dark"] {
-    /* ... (Dark mode variables remain the same) ... */
      --body-bg: linear-gradient(135deg, #2d0f1e 0%, #3a1c25 30%, #4a1e4a 60%, #30195e 100%);
     --text-color: #eee;
     --header-text-color: #eee;
@@ -112,7 +110,9 @@ header p {
     margin: 0 auto;
 }
 
-/* ... (Upload section styles) ... */
+/* ------------------------------------- */
+/* Bagian Unggah File */
+/* ------------------------------------- */
 .upload-section {
     background-color: var(--section-bg);
     padding: 40px;
@@ -124,12 +124,12 @@ header p {
 
 .upload-title {
     font-size: 1.8rem;
-    color: var(--text-color); /* Updated */
+    color: var(--text-color);
     margin-bottom: 10px;
 }
 
 .upload-subtitle {
-    color: var(--text-color); /* Updated */
+    color: var(--text-color);
     opacity: 0.8;
     margin-bottom: 30px;
 }
@@ -149,7 +149,7 @@ header p {
     cursor: pointer;
     transition: all 0.3s ease;
     background-color: var(--dropzone-bg);
-    color: var(--text-color); /* Added */
+    color: var(--text-color);
 }
 
 .drop-zone:hover {
@@ -160,7 +160,7 @@ header p {
 .upload-icon {
     width: 40px;
     height: 40px;
-    color: var(--link-color); /* Updated */
+    color: var(--link-color);
     margin-bottom: 10px;
 }
 
@@ -186,14 +186,14 @@ header p {
     display: block;
     margin-top: 10px;
     font-size: 0.9rem;
-    color: #888; /* Keep neutral */
+    color: #888;
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 body[data-theme="light"] .file-name-display[style*="color: rgb(76, 175, 80)"] { color: #4CAF50 !important; }
-body[data-theme="dark"] .file-name-display[style*="color: rgb(76, 175, 80)"] { color: #81C784 !important; } /* Lighter green for dark */
+body[data-theme="dark"] .file-name-display[style*="color: rgb(76, 175, 80)"] { color: #81C784 !important; }
 
 
 .btn-process {
@@ -218,29 +218,9 @@ body[data-theme="dark"] .file-name-display[style*="color: rgb(76, 175, 80)"] { c
 
 .file-note {
     margin-top: 20px;
-    color: var(--text-color); /* Updated */
+    color: var(--text-color);
     opacity: 0.8;
     font-size: 0.9rem;
-}
-
-.instructions {
-    text-align: left;
-    margin-top: 30px;
-    padding: 20px;
-    background-color: var(--instruction-bg);
-    border-radius: 10px;
-    border-left: 5px solid var(--instruction-border);
-    color: var(--text-color); /* Updated */
-}
-
-.instructions h3 {
-    color: var(--instruction-border);
-    margin-top: 0;
-}
-
-.instructions ol {
-    padding-left: 20px;
-    line-height: 1.6;
 }
 
 .divider {
@@ -249,6 +229,108 @@ body[data-theme="dark"] .file-name-display[style*="color: rgb(76, 175, 80)"] { c
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(147, 112, 219, 0.75), rgba(0, 0, 0, 0));
     margin: 30px 0;
 }
+
+/* ------------------------------------- */
+/* Tombol Sekunder (Pelajari Cara...) */
+/* ------------------------------------- */
+.btn-secondary {
+    background-color: transparent;
+    color: var(--link-color);
+    padding: 10px 20px;
+    border: 2px solid var(--link-color);
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s;
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    background-color: var(--link-color);
+    color: white;
+    box-shadow: 0 4px 10px rgba(147, 112, 219, 0.4);
+}
+
+body[data-theme="dark"] .btn-secondary {
+     color: var(--link-color);
+     border-color: var(--link-color);
+}
+body[data-theme="dark"] .btn-secondary:hover {
+     background-color: var(--link-color);
+     color: var(--card-bg);
+     box-shadow: 0 4px 10px rgba(187, 134, 252, 0.4);
+}
+
+
+/* ------------------------------------- */
+/* Halaman Instruksi */
+/* ------------------------------------- */
+.instruction-content {
+    background-color: var(--section-bg);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    color: var(--text-color);
+    margin-bottom: 30px;
+}
+
+.instruction-content h2 {
+    color: var(--instruction-border);
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--instruction-border);
+    padding-bottom: 15px;
+}
+
+.detailed-instructions {
+    padding-left: 20px;
+    line-height: 1.7;
+}
+.detailed-instructions li {
+    margin-bottom: 15px;
+}
+.detailed-instructions ul {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding-left: 25px;
+}
+.detailed-instructions ul li {
+    margin-bottom: 5px;
+}
+.detailed-instructions strong {
+     color: var(--instruction-border);
+}
+
+
+/* ------------------------------------- */
+/* Info Box */
+/* ------------------------------------- */
+.info-box {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: var(--instruction-bg);
+    border-left: 5px solid #4CAF50; /* Hijau */
+    border-radius: 8px;
+}
+body[data-theme="dark"] .info-box {
+     background-color: #333;
+}
+
+.info-box h3 {
+    margin-top: 0;
+    color: #4CAF50;
+    font-size: 1.1rem;
+}
+.info-box p {
+    margin-bottom: 0;
+    line-height: 1.6;
+}
+
+
 /* ------------------------------------- */
 /* Bagian Hasil & Kartu Ringkasan */
 /* ------------------------------------- */
@@ -497,7 +579,6 @@ table {
     }
 }
 
-
 /* --- Gaya Tabel Default (Mobile & Fallback) --- */
 thead { display: table-header-group; }
 thead tr { display: table-row; }
@@ -578,9 +659,8 @@ footer p {
     align-items: center;
 }
 
-/* Ukuran Ikon di Footer */
 .social-links a img.social-icon {
-    width: 20px; /* Ukuran default */
+    width: 20px;
     height: 20px;
     margin-right: 5px;
 }
@@ -698,8 +778,8 @@ input:checked + .slider:before {
         display: table-cell;
         width: auto;
         border-bottom: 1px solid var(--dropzone-hover-bg);
-        padding: 8px 10px; /* Padding mobile */
-        font-size: 0.9rem; /* Font mobile */
+        padding: 8px 10px;
+        font-size: 0.9rem;
     }
      #tableNotFollowingBack tbody td:first-child,
     #tableNotFollowedByYou tbody td:first-child,
@@ -748,7 +828,6 @@ input:checked + .slider:before {
         display: none;
     }
 
-
     .drop-zone {
         flex: 1 1 100%;
     }
@@ -759,6 +838,13 @@ input:checked + .slider:before {
 
     .upload-section {
         padding: 20px;
+    }
+    
+    .instruction-content { /* Padding lebih kecil di mobile */
+        padding: 20px;
+    }
+    .detailed-instructions ul {
+        padding-left: 15px;
     }
 
     .tab-navigation {

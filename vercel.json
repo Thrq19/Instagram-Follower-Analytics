@@ -1,14 +1,14 @@
 {
   "functions": {
-    "backend/server.js": {
+    "api/server.js": {   
       "memory": 1024,
       "maxDuration": 15
     }
   },
   "routes": [
     {
-      "src": "/generate-pdf",
-      "dest": "/backend/server.js"
+      "src": "/api/generate-pdf", 
+      "dest": "/api/server.js"    
     },
     {
       "src": "/(.*)",

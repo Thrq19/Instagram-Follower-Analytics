@@ -13,7 +13,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
     </style>
 </head>
-<body>
+<body data-theme="light">
 
     <header>
         <div class="theme-switch-wrapper header-toggle">
@@ -32,14 +32,15 @@
     </header>
 
     <main class="container">
+
         <section class="page upload-page">
-             <section class="upload-section">
+            <section class="upload-section">
                 <h2 class="upload-title">Upload Your Instagram Archives</h2>
-                <p class="upload-subtitle">Drag and drop your ZIP files or click to browse</p>
+                <p class="upload-subtitle">Drag and drop your JSON files or click to browse</p>
                 <form id="uploadForm">
                     <div class="drop-zone" id="followersDropZone">
                         <svg class="upload-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-4H8l4-4 4 4h-3v4z" fill="currentColor"/></svg>
-                        <p>File 1: Followers (JSON/ZIP)</p>
+                        <p>File 1: Followers (JSON)</p>
                         <input type="file" id="fileFollowers" accept=".json,.zip" required hidden>
                         <label for="fileFollowers" class="btn-browse">Browse File 1</label>
                         <span id="followersFileName" class="file-name-display">Belum ada file dipilih</span>
@@ -47,7 +48,7 @@
 
                     <div class="drop-zone" id="followingDropZone">
                         <svg class="upload-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-4H8l4-4 4 4h-3v4z" fill="currentColor"/></svg>
-                        <p>File 2: Following (JSON/ZIP)</p>
+                        <p>File 2: Following (JSON)</p>
                         <input type="file" id="fileFollowing" accept=".json,.zip" required hidden>
                         <label for="fileFollowing" class="btn-browse">Browse File 2</label>
                         <span id="followingFileName" class="file-name-display">Belum ada file dipilih</span>
@@ -55,21 +56,77 @@
 
                     <button type="submit" class="btn-process" disabled>Proses Analisis</button>
                 </form>
-                <p class="file-note"><strong>Catatan:</strong> Pastikan Anda mengunggah file yang benar. Maksimum ukuran file: 50MB.</p>
+                <p class="file-note">Hanya file format JSON yang didukung. Maksimum 50MB.</p>
 
                 <hr class="divider">
 
-                <div class="instructions">
-                    <h3>Cara mendapatkan data Instagram Anda:</h3>
-                    <ol>
-                        <li>Buka Pengaturan Instagram → <strong>Your Activity</strong> → <strong>Download Your Information</strong>.</li>
-                        <li>Pilih <strong>Select "Download or transfer information"</strong>.</li>
-                        <li>Pilih <strong>"Some of your information"</strong> dan pilih data <strong>Followers and following</strong>.</li>
-                        <li>Pilih format <strong>JSON</strong> dan klik <strong>Request download</strong>.</li>
-                    </ol>
-                </div>
+                <button id="showInstructionsBtn" class="btn-secondary">❓ Pelajari Cara Mendapatkan Data</button>
+
             </section>
         </section>
+
+        <section class="page instruction-page" style="display: none;">
+            <section class="instruction-content">
+                <h2>📝 Cara Mendapatkan Data Followers & Following Instagram</h2>
+                <p>Ikuti langkah-langkah berikut di aplikasi Instagram atau website:</p>
+                
+                <ol class="detailed-instructions">
+                    <li>
+                        <strong>Buka Profil Anda:</strong> Klik ikon profil Anda di pojok kanan bawah (aplikasi) atau kanan atas (website).
+                    </li>
+                    <li>
+                        <strong>Masuk ke Pengaturan:</strong>
+                        <ul>
+                            <li><strong>Aplikasi:</strong> Klik ikon garis tiga (☰) di pojok kanan atas, lalu pilih <strong>"Pengaturan dan privasi"</strong> (Settings and privacy).</li>
+                             <li><strong>Website:</strong> Klik ikon roda gigi (⚙️) atau "Pengaturan" (Settings).</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Pusat Akun (Account Center):</strong> Cari dan klik menu <strong>"Pusat Akun"</strong> (biasanya paling atas atau di bawah Meta).
+                    </li>
+                     <li>
+                        <strong>Informasi dan Izin Anda:</strong> Di dalam Pusat Akun, cari bagian <strong>"Informasi dan izin Anda"</strong> (Your information and permissions) dan klik.
+                    </li>
+                    <li>
+                        <strong>Unduh Informasi Anda:</strong> Pilih opsi <strong>"Unduh informasi Anda"</strong> (Download your information).
+                    </li>
+                     <li>
+                        <strong>Minta Unduhan:</strong> Klik tombol <strong>"Minta unduhan"</strong> (Request a download). Pilih akun Instagram Anda jika diminta.
+                    </li>
+                    <li>
+                        <strong>Pilih Jenis Informasi:</strong> Pilih opsi <strong>"Pilih jenis informasi"</strong> (Select types of information).
+                    </li>
+                     <li>
+                        <strong>Cari "Pengikut dan mengikuti":</strong> Gulir ke bawah atau cari hingga menemukan bagian <strong>"Pengikut dan mengikuti"</strong> (Followers and following). Centang kotak di sebelahnya. Klik <strong>"Berikutnya"</strong> (Next).
+                    </li>
+                     <li>
+                        <strong>Atur Format & Kualitas:</strong>
+                        <ul>
+                            <li>PENTING: Di bagian <strong>"Format"</strong>, pilih <strong>JSON</strong>.</li>
+                            <li>Kualitas Media: Bisa pilih "Sedang" (Medium) atau "Rendah" (Low) (opsional).</li>
+                             <li>Rentang Tanggal: Pilih "Semua" (All time).</li>
+                        </ul>
+                         <p>Klik <strong>"Kirim permintaan"</strong> (Submit request).</p>
+                    </li>
+                    <li>
+                        <strong>Tunggu Email/Notifikasi:</strong> Instagram akan memproses data Anda (bisa beberapa menit hingga jam). Anda akan menerima email atau notifikasi jika file siap diunduh.
+                    </li>
+                     <li>
+                        <strong>Unduh & Ekstrak File ZIP:</strong> Klik link unduhan dari email/notifikasi. Anda akan mendapatkan file <strong>ZIP</strong>. Ekstrak (Unzip) file tersebut.
+                    </li>
+                    <li>
+                        <strong>Temukan File JSON:** Di dalam folder hasil ekstraksi, cari folder <strong>`followers_and_following`</strong>. Di dalamnya akan ada file <strong>`followers_1.json`</strong> dan <strong>`following.json`</strong>. Inilah kedua file yang perlu Anda unggah ke aplikasi ini.
+                    </li>
+                </ol>
+                <div class="info-box">
+                    <h3>🔒 Keamanan & Privasi Data Anda</h3>
+                    <p>Semua proses analisis (pembacaan file JSON) dilakukan **sepenuhnya di dalam browser Anda (lokal)**. Data Anda **tidak pernah dikirim** ke server manapun, **kecuali** jika Anda menekan tombol "Export to PDF". Saat *export*, data *list username* dikirim ke server hanya untuk dibuatkan file PDF, lalu datanya langsung dihapus.</p>
+                </div>
+
+                 <button id="backToUploadFromInstructions" class="btn-process btn-back">← Kembali ke Halaman Unggah</button>
+            </section>
+        </section>
+
 
         <section class="page results-page" style="display: none;">
              <section class="results-section">
@@ -92,9 +149,9 @@
                 </div>
 
                 <div class="tab-navigation">
-                    <button class="tab-button active" data-tab="tab-mutuals">Mutuals (<span id="tabMutualsCount">0</span>)</button>
-                    <button class="tab-button" data-tab="tab-nfb">Not Following Back (<span id="tabNFbCount">0</span>)</button>
-                    <button class="tab-button" data-tab="tab-nfby">Not Followed By You (<span id="tabNFbYCount">0</span>)</button>
+                    <button class="tab-button active" data-tab="tab-mutuals">Mutuals (<span>0</span>)</button>
+                    <button class="tab-button" data-tab="tab-nfb">Not Following Back (<span>0</span>)</button>
+                    <button class="tab-button" data-tab="tab-nfby">Not Followed By You (<span>0</span>)</button>
                 </div>
 
                 <div class="tab-content-container" id="resultsToExport">
@@ -152,7 +209,7 @@
                 <img src="Image/images.png" alt="LinkedIn Icon" class="social-icon linkedin-footer-icon" width="20" height="20">
                 <span>LinkedIn</span>
             </a>
-            <a href="#" onclick="alert('Dalam Pengembangan')" target="_blank" title="My Portfolio">
+            <a href="" onclick="alert('sabar, masih banyak tugas🙏🙏🙏')" target="_blank" title="My Portfolio">
                 <img src="Image/logo.png" alt="Portfolio Icon" class="social-icon portfolio-footer-icon" width="20" height="20">
                 <span>Web Portofolio</span>
             </a>

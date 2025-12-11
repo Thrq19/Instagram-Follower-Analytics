@@ -103,10 +103,11 @@ Jika Anda ingin mengembangkan atau menjalankan proyek ini di komputer sendiri:
 
 **Thoriq Ahmad Salahuddin Al Ayubi**
 
-* Instagram: [@thrq.a_19](https://www.instagram.com/thorq.ahmd/)
+* Instagram: [@thorq.ahmd](https://www.instagram.com/thorq.ahmd/)
 * LinkedIn: [Thoriq Ahmad](https://www.linkedin.com/in/thoriq-ahmad-salahuddin-al-ayubi-87b3852b7)
 
 ---
 
 
 &copy; 2024 Instagram Archive Analytics.
+
